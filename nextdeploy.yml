@@ -1,0 +1,21 @@
+# nextdeploy.yml — the whole deploy, one file, committed to your repo.
+# Edit `domain` and `host`, then run: nextdeploy up
+
+app:
+  name: nextdeploy-template
+  domain: example.com # <- your domain
+  port: 3000
+
+servers:
+  - host: 203.0.113.10 # <- your VPS IP
+    ssl: caddy # automatic HTTPS, zero config
+
+build:
+  command: next build
+
+env:
+  # Secrets are read from the server's environment (or a .env you place
+  # there) — never commit real values to git.
+  - DATABASE_URL
+  - BETTER_AUTH_SECRET
+  - BETTER_AUTH_URL
