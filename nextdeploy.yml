@@ -13,7 +13,7 @@ target_type: vps
 # APP METADATA
 # -----
 app:
-  name: ressencesystems.com
+  name: ressencesystems
   environment: production
   domain:
     name: ressencesystems.com
