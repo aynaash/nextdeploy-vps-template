@@ -2,9 +2,9 @@
 
 Target Domain: **ressencesystems.com**
 Deployment Type: **VPS (Direct Server)**
-Generated: `2026-07-06 00:40:20 EAT`
+Generated: `2026-08-01 17:12:51 EAT`
 
-Server IP: **production-01**
+Server IP: **production**
 
 > [!IMPORTANT]
 > This guide contains **exact** values for your domain. Copy them precisely.
@@ -28,7 +28,7 @@ Points your main domain directly to your server.
 | :--- | :--- |
 | **Type** | `A Record` |
 | **Host/Name** | `@` |
-| **Value/IP** | `production-01` |
+| **Value/IP** | `production` |
 | **TTL** | `Automatic` |
 
 
