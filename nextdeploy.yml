@@ -1,3 +1,4 @@
+
 # ==============================
 # NEXTDEPLOY CONFIGURATION FILE
 # ==============================
@@ -16,6 +17,11 @@ target_type: vps
 # APP METADATA
 # -----
 app:
+  # name: the app IDENTIFIER — a slug, NOT a domain.
+  #   allowed  : lowercase letters, digits, hyphens  (^[a-z0-9-]+$), 3-63 chars
+  #   forbidden: dots, uppercase, spaces, underscores
+  #   Your DOMAIN goes in app.domain below — do not put it here.
+  #   e.g. name: nextdeploy-template  (domain: example.com)
   name: nextdeploy-template # [REQUIRED] Unique app name used for identification
   environment: production # [REQUIRED] production | staging | development
   # domain can be a bare hostname, or a block recording the registrar and how
@@ -25,17 +31,26 @@ app:
   #     provider: namecheap   # namecheap | cloudflare | other
   #     dns: manual           # auto (provider API) | manual (print records)
   #     zone: example.com
-  domain: ressencesystems.com # Public domain for your app
+  domain: yatba.org # Public domain for your app
   port: 3000 # [REQUIRED] Internal port your app listens on
+
+  # Optional Go sidecar for VPS deployments. Enable to serve eligible
+  # prerendered pages and supported image requests without Node.js.
+  # Requests requiring middleware or SSR continue to use Node.js.
+  gosidecar:
+    enabled: true # Opt in after reviewing the sidecar's supported request paths
+    image_optimization: true
+    isr_cache: true
+    max_image_workers: 4
 
 # -----
 # DEPLOYMENT SERVERS
 # -----
 servers:
-  - name: "production" # [REQUIRED] Friendly name for the server
-    host: 34.205.134.84 # [REQUIRED] IP or hostname of the server
-    username: ubuntu # [REQUIRED] SSH user (e.g., ubuntu, debian, root)
-    key_path: ~/.ssh/pesastream-ec2.pem # [REQUIRED] Path to your private SSH key
+  - name: "production-01" # [REQUIRED] Friendly name for the server
+    host: 138.68.228.184 # [REQUIRED] IP or hostname of the server
+    username: root # [REQUIRED] SSH user (e.g., ubuntu, debian, root)
+    key_path: ~/.ssh/id_ed25519	  # [REQUIRED] Path to your private SSH key
     # password: "" # Optional: SSH password (key_path takes precedence)
 
 # -----

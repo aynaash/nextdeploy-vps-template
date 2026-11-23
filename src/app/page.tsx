@@ -71,14 +71,32 @@ export default async function Home() {
           </Link>
           <nav className="flex items-center gap-1 font-mono text-xs font-medium uppercase tracking-[0.15em]">
             {session ? (
-              <Link
-                href="/dashboard"
-                className="border-2 border-stone-900 bg-stone-900 px-4 py-2 text-[#faf8f3] transition hover:bg-transparent hover:text-stone-900"
-              >
-                Dashboard →
-              </Link>
+              <>
+                <a
+                  href="https://yatba.org/routes-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden border-2 border-stone-900 px-4 py-2 text-stone-900 transition hover:bg-stone-900 hover:text-[#faf8f3] sm:block"
+                >
+                  Demo ↗
+                </a>
+                <Link
+                  href="/dashboard"
+                  className="border-2 border-stone-900 bg-stone-900 px-4 py-2 text-[#faf8f3] transition hover:bg-transparent hover:text-stone-900"
+                >
+                  Dashboard →
+                </Link>
+              </>
             ) : (
               <>
+                <a
+                  href="https://yatba.org/routes-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden border-2 border-stone-900 px-4 py-2 text-stone-900 transition hover:bg-stone-900 hover:text-[#faf8f3] sm:block"
+                >
+                  Demo ↗
+                </a>
                 <Link
                   href="/sign-in"
                   className="hidden px-4 py-2 text-stone-500 transition hover:text-stone-900 sm:block"
@@ -98,10 +116,11 @@ export default async function Home() {
       </header>
 
       {/* Hero */}
-      <section className="border-b-2 border-stone-900">
+      <section className="relative overflow-hidden border-b-2 border-stone-900">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#006600]/5 via-transparent to-transparent" />
         <div className="mx-auto grid max-w-6xl lg:grid-cols-12">
           {/* Left — the pitch */}
-          <div className="border-stone-900 px-5 py-12 lg:col-span-7 lg:border-r-2 lg:py-20 lg:pl-8 lg:pr-12">
+          <div className="relative border-stone-900 px-5 py-12 lg:col-span-7 lg:border-r-2 lg:py-20 lg:pl-8 lg:pr-12">
             <div className="flex flex-wrap items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-stone-500">
               <span className="bg-stone-900 px-2 py-1 text-[#faf8f3]">
                 01 / Deploy
@@ -126,7 +145,7 @@ export default async function Home() {
               lock-in, no surprise bill.
             </p>
 
-            <div className="mt-9 flex flex-wrap">
+            <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href={session ? "/dashboard" : "/sign-up"}
                 className="border-2 border-stone-900 bg-stone-900 px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-[#faf8f3] transition hover:bg-transparent hover:text-stone-900"
@@ -134,8 +153,16 @@ export default async function Home() {
                 {session ? "Open dashboard →" : "Get started free →"}
               </Link>
               <a
+                href="https://yatba.org/routes-demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-[#BB0000] bg-[#BB0000] px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-white transition hover:bg-transparent hover:text-[#BB0000]"
+              >
+                Live demo ↗
+              </a>
+              <a
                 href="https://github.com/aynaash/nextdeploy-template"
-                className="-ml-0.5 border-2 border-stone-900 px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] transition hover:bg-stone-900 hover:text-[#faf8f3]"
+                className="border-2 border-stone-900 px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] transition hover:bg-stone-900 hover:text-[#faf8f3]"
               >
                 Source ↗
               </a>
@@ -143,8 +170,9 @@ export default async function Home() {
           </div>
 
           {/* Right — the manifest */}
-          <div className="flex flex-col justify-between bg-stone-900 px-5 py-12 text-[#faf8f3] lg:col-span-5 lg:p-8">
-            <div>
+          <div className="relative flex flex-col justify-between bg-stone-900 px-5 py-12 text-[#faf8f3] lg:col-span-5 lg:p-8">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-[#006600]/20 via-transparent to-transparent" />
+            <div className="relative">
               <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-stone-500">
                 {"// the stack"}
               </p>
@@ -162,7 +190,7 @@ export default async function Home() {
                 ))}
               </dl>
             </div>
-            <NairobiSkyline className="mt-10 h-16 w-full text-white/15" />
+            <NairobiSkyline className="relative mt-10 h-16 w-full text-white/15" />
           </div>
         </div>
       </section>
@@ -191,8 +219,11 @@ export default async function Home() {
       <section className="border-b-2 border-stone-900">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px bg-stone-900 lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="bg-[#faf8f3] px-5 py-9 lg:px-8">
-              <div className="font-mono text-4xl font-bold tracking-tight lg:text-5xl">
+            <div
+              key={s.label}
+              className="group bg-[#faf8f3] px-5 py-9 transition-colors hover:bg-stone-50 lg:px-8"
+            >
+              <div className="font-mono text-4xl font-bold tracking-tight transition-transform group-hover:scale-105 lg:text-5xl">
                 {s.value}
               </div>
               <div className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-stone-500">
@@ -218,10 +249,12 @@ export default async function Home() {
             {features.map((f) => (
               <li
                 key={f.n}
-                className="grid items-start gap-4 border-t-2 border-stone-900 px-5 py-8 lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-8"
+                className="group grid items-start gap-4 border-t-2 border-stone-900 px-5 py-8 transition-colors hover:bg-stone-50 lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-8"
               >
                 <div className="flex items-center gap-4 lg:col-span-2">
-                  <span className={`h-3 w-3 ${f.accent}`} />
+                  <span
+                    className={`h-3 w-3 transition-transform group-hover:scale-125 ${f.accent}`}
+                  />
                   <span className="font-mono text-sm text-stone-400">{f.n}</span>
                 </div>
                 <h3 className="text-2xl font-bold tracking-tight lg:col-span-4 lg:text-3xl">
@@ -247,7 +280,7 @@ export default async function Home() {
             <span className="text-[#4ade80]">nextdeploy ship</span>.
           </h2>
 
-          <div className="mt-10 max-w-3xl border-2 border-stone-700 bg-black">
+          <div className="mt-10 max-w-3xl border-2 border-stone-700 bg-black shadow-[0_0_40px_rgba(74,222,128,0.1)]">
             <div className="flex items-center gap-2 border-b-2 border-stone-800 px-4 py-2.5">
               <span className="h-3 w-3 rounded-full bg-[#BB0000]" />
               <span className="h-3 w-3 rounded-full bg-[#F5A623]" />
@@ -281,8 +314,9 @@ export default async function Home() {
       </section>
 
       {/* Harambee CTA */}
-      <section className="border-b-2 border-stone-900 bg-[#006600] text-white">
-        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 lg:grid-cols-12 lg:items-end lg:px-8">
+      <section className="relative overflow-hidden border-b-2 border-stone-900 bg-[#006600] text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
+        <div className="relative mx-auto grid max-w-6xl gap-8 px-5 py-16 lg:grid-cols-12 lg:items-end lg:px-8">
           <div className="lg:col-span-8">
             <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-white/60">
               {"// harambee — pull together"}
@@ -300,12 +334,22 @@ export default async function Home() {
               Kenya&rsquo;s spirit of pulling together, in your stack. Built in
               the Silicon Savannah — for Nairobi and beyond.
             </p>
-            <Link
-              href={session ? "/dashboard" : "/sign-up"}
-              className="mt-6 inline-block border-2 border-white bg-white px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-[#006600] transition hover:bg-transparent hover:text-white"
-            >
-              {session ? "Open dashboard →" : "Create an account →"}
-            </Link>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={session ? "/dashboard" : "/sign-up"}
+                className="inline-block border-2 border-white bg-white px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-[#006600] transition hover:bg-transparent hover:text-white"
+              >
+                {session ? "Open dashboard →" : "Create an account →"}
+              </Link>
+              <a
+                href="https://yatba.org/routes-demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block border-2 border-white/40 px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.15em] text-white transition hover:border-white hover:bg-white/10"
+              >
+                Try the demo ↗
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -317,12 +361,22 @@ export default async function Home() {
             <Shield className="h-5 w-4" />
             NextDeploy · Nairobi 🇰🇪
           </span>
-          <a
-            href="https://hersitech.com/talks/nextdeploy"
-            className="underline-offset-4 transition hover:text-stone-900 hover:underline"
-          >
-            About the talk ↗
-          </a>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://yatba.org/routes-demo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-4 transition hover:text-stone-900 hover:underline"
+            >
+              Demo ↗
+            </a>
+            <a
+              href="https://hersi.dev/talks/nextdeploy"
+              className="underline-offset-4 transition hover:text-stone-900 hover:underline"
+            >
+              About the talk ↗
+            </a>
+          </div>
         </div>
       </footer>
     </div>
