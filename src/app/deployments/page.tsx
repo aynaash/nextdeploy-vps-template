@@ -5,7 +5,7 @@ import { FlagStripe, Shield } from "@/components/flag-stripe";
 
 // Intercepting route demo — the feed page.
 // Clicking a row links to /deployments/[id]. If navigated client-side from here,
-// Next.js intercepts with app/deployments/(.)deployments/[id]/page.tsx (the modal).
+// Next.js intercepts with app/deployments/(.)[id]/page.tsx (the modal).
 // If you open /deployments/[id] directly, you get the full-page version.
 
 const DEMO_DEPLOYMENTS = [

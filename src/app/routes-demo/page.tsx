@@ -60,7 +60,7 @@ const routes = [
     color: "bg-[#F5A623]",
     items: [
       { label: "/deployments — feed (click a row to intercept)", path: "/deployments", note: "app/deployments/page.tsx" },
-      { label: "/deployments/[id] — full page (direct URL)", path: "/deployments/deploy-123", note: "app/deployments/[id]/page.tsx" },
+      { label: "/deployments/[id] — full page (direct URL)", path: "/deployments/deploy-123", note: "app/deployments/[id]/page.tsx · app/deployments/(.)[id]/page.tsx for modal" },
     ],
   },
   {
@@ -79,6 +79,38 @@ const routes = [
     color: "bg-stone-400",
     items: [
       { label: "404 — not-found.tsx", path: "/this-page-does-not-exist", note: "trigger notFound()" },
+    ],
+  },
+  {
+    section: "Docs pages",
+    color: "bg-stone-900",
+    items: [
+      { label: "/docs — static root", path: "/docs", note: "app/docs/page.tsx" },
+      { label: "/docs/vps/overview", path: "/docs/vps/overview", note: "app/docs/[...slug]/page.tsx" },
+      { label: "/docs/vps/go-sidecar", path: "/docs/vps/go-sidecar", note: "app/docs/[...slug]/page.tsx" },
+      { label: "/docs/internals/go-sidecar", path: "/docs/internals/go-sidecar", note: "app/docs/[...slug]/page.tsx" },
+    ],
+  },
+  {
+    section: "Dashboard — new pages",
+    color: "bg-[#006600]",
+    items: [
+      { label: "/dashboard/sidecar", path: "/dashboard/sidecar", note: "app/dashboard/sidecar/page.tsx" },
+      { label: "/dashboard/logs", path: "/dashboard/logs", note: "app/dashboard/logs/page.tsx" },
+      { label: "/dashboard/releases", path: "/dashboard/releases", note: "app/dashboard/releases/page.tsx" },
+    ],
+  },
+  {
+    section: "New API routes",
+    color: "bg-stone-600",
+    items: [
+      { label: "GET /api/sidecar/status", path: "/api/sidecar/status", note: "app/api/sidecar/status/route.ts" },
+      { label: "GET /api/sidecar/cache", path: "/api/sidecar/cache", note: "app/api/sidecar/cache/route.ts" },
+      { label: "GET /api/logs", path: "/api/logs", note: "app/api/logs/route.ts" },
+      { label: "GET /api/logs/[id]", path: "/api/logs/5", note: "app/api/logs/[id]/route.ts" },
+      { label: "GET /api/releases", path: "/api/releases", note: "app/api/releases/route.ts" },
+      { label: "GET /api/releases/[id]", path: "/api/releases/rel-24", note: "app/api/releases/[id]/route.ts" },
+      { label: "POST /api/releases/[id]/rollback", path: "/api/releases/rel-23/rollback", note: "app/api/releases/[id]/rollback/route.ts" },
     ],
   },
 ];

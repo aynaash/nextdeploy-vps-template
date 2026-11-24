@@ -5,7 +5,7 @@ import { FlagStripe, Shield } from "@/components/flag-stripe";
 
 // Full-page deployment detail — rendered when the URL is accessed directly.
 // When navigated client-side from /deployments, the intercepting route
-// (app/deployments/(.)deployments/[id]/page.tsx) shows a modal instead.
+// (app/deployments/(.)[id]/page.tsx) shows a modal instead.
 
 const DEMO_DEPLOYMENTS: Record<
   string,

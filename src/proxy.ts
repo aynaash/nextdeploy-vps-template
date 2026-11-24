@@ -1,7 +1,7 @@
 import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Middleware runs on the Edge runtime, so it must NOT import the DB or the
+// Proxy runs on the Edge runtime, so it must NOT import the DB or the
 // better-auth server instance (they pull in Node-only APIs). We do an OPTIMISTIC
 // check on the presence of the session cookie only — the real session is still
 // verified server-side in requireSession(). This just avoids a flash of a
@@ -17,7 +17,7 @@ const securityHeaders: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (PROTECTED.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {

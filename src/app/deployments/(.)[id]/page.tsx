@@ -45,7 +45,7 @@ export default function DeploymentModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-stone-500">
-              intercepted · app/deployments/(.)deployments/[id]/page.tsx
+              intercepted · app/deployments/(.)[id]/page.tsx
             </p>
             <h2 className="mt-1 text-xl font-bold tracking-tight text-stone-900">
               {deploy?.project ?? id}

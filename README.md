@@ -3,7 +3,7 @@
 A full-stack **Next.js** starter — auth and Postgres included — that deploys to
 a VPS **you own** with one command.
 
-- **Next.js 15** (App Router, Server Components, Server Actions, TypeScript strict)
+- **Next.js 16.4.6** (App Router, Server Components, Server Actions, TypeScript strict)
 - **[better-auth](https://better-auth.com)** — email + password, sessions in Postgres
 - **[Neon](https://neon.tech)** — serverless Postgres (free tier is plenty)
 - **[Drizzle ORM](https://orm.drizzle.team)** — typed schema, `db:push` migrations
@@ -17,13 +17,16 @@ a VPS **you own** with one command.
 - **A data-driven dashboard** — Overview, Projects (full CRUD via Server Actions),
   and Settings, all reading/writing real rows in Postgres (no mock JSON)
 - **`GET /api/health`** — DB-checked readiness probe for zero-downtime deploys
-- **Edge middleware** — optimistic auth redirect + baseline security headers
+- **Edge proxy** — optimistic auth redirect + baseline security headers (`src/proxy.ts`)
 - **SEO & PWA assets** — generated `robots`, `sitemap`, `manifest`, favicon, and a
   dynamic OpenGraph image (all code, no binaries to commit)
 - **`Dockerfile`** — minimal multi-stage image from Next's standalone output
+- **Route coverage** — every App Router pattern exercised at `/routes-demo`
 
-From the talk **“NextDeploy — deploying full-stack apps, made easier”**
+From the talk **"NextDeploy — deploying full-stack apps, made easier"**
 → slides at [hersitech.com/talks/nextdeploy](https://hersitech.com/talks/nextdeploy)
+
+**Live demo:** [yatba.org](https://yatba.org) · route coverage at [yatba.org/routes-demo](https://yatba.org/routes-demo)
 
 ## Quickstart (local)
 
@@ -45,7 +48,7 @@ bun run db:push
 bun run dev          # → http://localhost:3000
 ```
 
-Sign up at `/sign-in`, and you have working sessions backed by Postgres.
+Sign up at `/sign-up`, and you have working sessions backed by Postgres.
 
 ## Deploy to your own VPS
 
@@ -93,20 +96,44 @@ It ships with a `HEALTHCHECK` that hits `/api/health` (which pings Postgres).
 
 ```
 src/
-  middleware.ts                    # edge: auth redirect + security headers
+  proxy.ts                         # edge: auth redirect + security headers (Next.js 16)
   app/
-    layout.tsx                     # root metadata (OpenGraph, sitemap base)
-    loading.tsx / error.tsx / not-found.tsx
+    layout.tsx                     # root layout + metadata (OpenGraph, sitemap base)
+    loading.tsx                    # root loading UI
+    error.tsx                      # root error boundary
+    not-found.tsx                  # 404 page
     robots.ts / sitemap.ts / manifest.ts / icon.tsx / opengraph-image.tsx
     api/
       auth/[...all]/route.ts       # better-auth handler (all auth endpoints)
       health/route.ts              # DB-checked readiness probe for deploys
+      projects/route.ts            # GET list · POST create
+      projects/[id]/route.ts       # GET · PATCH · DELETE by id
+      deployments/route.ts         # GET list
+      deployments/[id]/status/route.ts   # GET deployment status
     sign-in/ sign-up/              # email + password auth pages
     dashboard/
       layout.tsx                   # auth guard + top bar + tab nav
-      page.tsx                     # Overview — live stats from Postgres
+      page.tsx                     # overview — live stats from Postgres
       projects/                    # full CRUD (page + Server Actions + form)
       settings/                    # profile update via better-auth
+      overview/                    # parallel routes demo
+        layout.tsx                 # injects @analytics and @activity slots
+        page.tsx
+        @analytics/page.tsx
+        @activity/page.tsx
+    (marketing)/                   # route group — shared layout, URLs unaffected
+      layout.tsx
+      about/page.tsx               # → /about
+      pricing/page.tsx             # → /pricing
+    blog/[slug]/page.tsx           # dynamic route
+    shop/[category]/[productId]/   # multiple dynamic segments
+    projects/[id]/page.tsx         # dynamic + notFound()
+    docs/[...slug]/page.tsx        # catch-all route
+    deployments/
+      page.tsx                     # feed — intercepting route entry point
+      [id]/page.tsx                # full-page deployment detail
+      (.)[id]/page.tsx             # intercepted modal (client-side nav from feed)
+    routes-demo/page.tsx           # interactive index of all route patterns
   components/                      # flag-stripe, nav, auth form, skyline, …
   db/
     schema.ts                      # auth tables + app tables (project, deployment)
@@ -119,6 +146,25 @@ src/
 nextdeploy.yml                     # the deploy, in git
 Dockerfile                         # standalone container image
 ```
+
+## Route coverage
+
+`/routes-demo` links to every route pattern in the app — useful as a smoke-test
+index after a deploy to confirm all patterns resolve correctly.
+
+| Pattern | Example URL |
+|---|---|
+| Static | `/`, `/sign-in` |
+| Nested static | `/dashboard/projects`, `/dashboard/settings` |
+| Dynamic segment | `/blog/[slug]`, `/projects/[id]` |
+| Multiple dynamic segments | `/shop/[category]/[productId]` |
+| Catch-all | `/docs/deploy/vps/caddy` |
+| Optional catch-all | `/docs` |
+| Route group | `/about`, `/pricing` (from `(marketing)`) |
+| Parallel routes | `/dashboard/overview` (`@analytics` + `@activity`) |
+| Intercepting route | `/deployments` → click row → modal |
+| API static | `GET /api/health`, `GET /api/projects` |
+| API dynamic | `GET /api/projects/[id]`, `GET /api/deployments/[id]/status` |
 
 ## License
 
