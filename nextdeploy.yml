@@ -48,7 +48,7 @@ app:
 # -----
 servers:
   - name: "production-01" # [REQUIRED] Friendly name for the server
-    host: 138.68.228.184 # [REQUIRED] IP or hostname of the server
+    host: ${VPS_HOST} # [REQUIRED] IP or hostname of the server (injected from VPS_HOST secret in CI)
     username: root # [REQUIRED] SSH user (e.g., ubuntu, debian, root)
     key_path: ~/.ssh/id_ed25519	  # [REQUIRED] Path to your private SSH key
     # password: "" # Optional: SSH password (key_path takes precedence)
