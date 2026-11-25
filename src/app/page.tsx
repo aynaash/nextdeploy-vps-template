@@ -6,10 +6,12 @@ import { NairobiSkyline } from "@/components/nairobi-skyline";
 import { auth } from "@/lib/auth";
 
 const specs = [
-  { k: "Framework", v: "Next.js 15 · RSC" },
+  { k: "Framework", v: "Next.js 16 · RSC" },
   { k: "Auth", v: "better-auth" },
   { k: "Database", v: "Neon + Drizzle" },
   { k: "Runtime", v: "Node · your VPS" },
+  { k: "Sidecar", v: "Go · sub-ms cache" },
+  { k: "CI/CD", v: "GitHub Actions · VPS" },
   { k: "TLS", v: "Caddy · auto-HTTPS" },
 ];
 
@@ -124,6 +126,9 @@ export default async function Home() {
             <div className="flex flex-wrap items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-stone-500">
               <span className="bg-stone-900 px-2 py-1 text-[#faf8f3]">
                 01 / Deploy
+              </span>
+              <span className="border border-[#006600] bg-[#006600]/10 px-2 py-1 text-[#006600]">
+                CI/CD Live · Go Sidecar
               </span>
               <span>01°17′S · 36°49′E — Nairobi</span>
             </div>
