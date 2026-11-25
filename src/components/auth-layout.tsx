@@ -11,11 +11,11 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
         {/* savannah sunset glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-32 left-1/2 h-[30rem] w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#F5A623]/40 via-[#BB0000]/20 to-transparent blur-3xl"
+          className="pointer-events-none absolute -bottom-32 left-1/2 h-120 w-2xl -translate-x-1/2 rounded-full bg-linear-to-t from-[#F5A623]/40 via-[#BB0000]/20 to-transparent blur-3xl"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-[#006600]/25 blur-3xl"
+          className="pointer-events-none absolute -left-40 -top-40 h-112 w-md rounded-full bg-[#006600]/25 blur-3xl"
         />
 
         <Link

@@ -61,14 +61,16 @@ export default function DeploymentModal({
 
         {deploy ? (
           <dl className="mt-5 divide-y divide-stone-100 text-sm">
-            {[
-              ["Commit", deploy.commit],
-              ["Message", deploy.message],
-              ["Status", deploy.status],
-            ].map(([label, value]) => (
+            {(
+              [
+                ["Commit", deploy.commit],
+                ["Message", deploy.message],
+                ["Status", deploy.status],
+              ] as const
+            ).map(([label, value]) => (
               <div key={label} className="flex items-center justify-between py-3">
                 <dt className="text-stone-400">{label}</dt>
-                <dd className={`font-medium ${label === "Status" ? statusStyle[value] + " rounded-full px-2 py-0.5 text-xs" : "text-stone-900"}`}>
+                <dd className={`font-medium ${label === "Status" ? `${statusStyle[value] ?? ""} rounded-full px-2 py-0.5 text-xs` : "text-stone-900"}`}>
                   {label === "Commit" ? <span className="font-mono">{value}</span> : value}
                 </dd>
               </div>

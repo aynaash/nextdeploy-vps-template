@@ -10,7 +10,7 @@ const schema = z.object({
     .string()
     .min(1, "required — generate with: openssl rand -base64 32"),
   // Optional in dev (better-auth infers it); set to https://your-domain.com in prod.
-  BETTER_AUTH_URL: z.string().url().optional(),
+  BETTER_AUTH_URL: z.url().optional(),
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),

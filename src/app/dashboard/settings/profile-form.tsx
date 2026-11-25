@@ -13,7 +13,7 @@ export function ProfileForm({ initialName }: { initialName: string }) {
     { type: "ok" | "error"; text: string } | null
   >(null);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
     setMessage(null);

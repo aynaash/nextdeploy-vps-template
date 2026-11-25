@@ -33,7 +33,7 @@ export default async function DashboardPage() {
   const firstName = user.name.split(" ")[0];
 
   // All dashboard numbers below are read live from Postgres — nothing is mocked.
-  const [sessions, projects, [{ value: deployCount }], recentDeploys] =
+  const [sessions, projects, deployCountRows, recentDeploys] =
     await Promise.all([
       db
         .select({
@@ -65,6 +65,8 @@ export default async function DashboardPage() {
         .orderBy(desc(deployment.createdAt))
         .limit(6),
     ]);
+
+  const deployCount = deployCountRows[0]?.value ?? 0;
 
   const liveProjects = projects.filter((p) => p.status === "live").length;
   const current = recentDeploys[0];

@@ -52,6 +52,10 @@ export async function createProject(
     })
     .returning({ id: project.id });
 
+  if (!created) {
+    return { error: "Failed to create project" };
+  }
+
   await db.insert(deployment).values({
     projectId: created.id,
     userId: user.id,

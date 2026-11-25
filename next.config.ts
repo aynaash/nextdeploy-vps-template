@@ -9,9 +9,9 @@ const nextConfig: NextConfig = {
   experimental: {
     // Server Actions are invoked from the browser; only trust our own origin(s).
     serverActions: {
-      allowedOrigins: process.env.BETTER_AUTH_URL
-        ? [new URL(process.env.BETTER_AUTH_URL).host]
-        : undefined,
+      ...(process.env.BETTER_AUTH_URL
+        ? { allowedOrigins: [new URL(process.env.BETTER_AUTH_URL).host] }
+        : {}),
     },
   },
 };
