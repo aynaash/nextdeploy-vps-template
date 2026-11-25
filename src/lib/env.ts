@@ -2,6 +2,10 @@ import { z } from "zod";
 
 // Fail fast on misconfiguration: validate the environment once, at import time,
 // so a missing secret is a clear startup error instead of a mysterious 500.
+// During `next build` (e.g. in CI, where runtime secrets live only on the VPS),
+// Next.js imports server modules while collecting page data; allow safe
+// build-only placeholders during phase-production-build so builds never need
+// production secrets.
 const schema = z.object({
   DATABASE_URL: z
     .string()
@@ -16,7 +20,21 @@ const schema = z.object({
     .default("development"),
 });
 
-const parsed = schema.safeParse(process.env);
+const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
+
+const rawEnv = isBuildPhase
+  ? {
+      ...process.env,
+      DATABASE_URL:
+        process.env.DATABASE_URL ||
+        "postgresql://build:build@localhost:5432/build",
+      BETTER_AUTH_SECRET:
+        process.env.BETTER_AUTH_SECRET ||
+        "build-time-placeholder-secret-not-used-at-runtime",
+    }
+  : process.env;
+
+const parsed = schema.safeParse(rawEnv);
 
 if (!parsed.success) {
   const issues = parsed.error.issues
